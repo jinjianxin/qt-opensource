@@ -1,0 +1,105 @@
+/*  smplayer, GUI front-end for mplayer.
+    Copyright (C) 2006-2012 Ricardo Villalba <rvm@users.sourceforge.net>
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+#include "global.h"
+#include "preferences.h"
+
+#ifndef MINILIB
+
+#include "constants.h"
+#include <QSettings>
+#include "translator.h"
+#include "paths.h"
+#include <QApplication>
+#include <QFile>
+
+#include "debug.h"
+
+QSettings * Global::settings = 0;
+Preferences * Global::pref = 0;
+Translator * Global::translator = 0;
+
+using namespace Global;
+
+void Global::global_init(const QString & config_path) {
+
+#ifdef DEBUG
+	qDebug("global_init");
+#endif
+
+	// Translator
+	translator = new Translator();
+
+	// settings
+	if (!config_path.isEmpty()) {
+		Paths::setConfigPath(config_path);
+	}
+
+	if (Paths::iniPath().isEmpty()) {
+		settings = new QSettings(QSettings::IniFormat, QSettings::UserScope,
+    	                         QString(COMPANY), QString(PROGRAM) );
+	} else {
+		QString filename = Paths::iniPath() + "/smplayer.ini";
+		settings = new QSettings( filename, QSettings::IniFormat );
+#ifdef DEBUG
+		qDebug("global_init: config file: '%s'", filename.toUtf8().data());
+#endif
+	}
+
+	// Preferences
+	pref = new Preferences();
+}
+
+void Global::global_end() {
+#ifdef DEBUG
+	qDebug("global_end");
+#endif
+	// delete
+	delete pref;
+	pref = 0;
+
+	delete settings;
+	delete translator;
+}
+
+#else
+
+Preferences * Global::pref = 0;
+
+using namespace Global;
+
+void Global::global_init() {
+#ifdef DEBUG
+	qDebug("global_init");
+#endif
+	// Preferences
+	pref = new Preferences();
+}
+
+void Global::global_end() {
+#ifdef DEBUG
+	qDebug("global_end");
+#endif
+	// delete
+	delete pref;
+	pref = 0;
+}
+
+#endif // MINILIB
+
