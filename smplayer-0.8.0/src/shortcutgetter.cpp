@@ -372,13 +372,6 @@ bool ShortcutGetter::event(QEvent *e)
 					
 			bStop = true;
 			break;
-					
-			/*
-		case QEvent::ShortcutOverride :
-			leKey->setText("Shortcut override");
-			break;
-			*/
-					
 		default:
 			return QDialog::event(e);
 			break;

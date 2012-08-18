@@ -168,7 +168,7 @@ void SMPlayer::changeGUI(QString new_gui) {
 #endif
 
 SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
-#ifndef DEBUG
+/*#ifndef DEBUG
 	qDebug("SMPlayer::processArgs: arguments: %d", args.count());
 #endif
 	for (int n = 0; n < args.count(); n++) {
@@ -177,6 +177,7 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 #endif
 	}
 
+    */
 
     QString action; // Action to be passed to running instance
 	bool show_help = false;
@@ -184,6 +185,7 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 	if (!pref->gui.isEmpty()) gui_to_use = pref->gui;
 	bool add_to_playlist = false;
 
+    /*
 #ifdef Q_OS_WIN
 	if (args.contains("-uninstall")){
 #if USE_ASSOCIATIONS
@@ -193,14 +195,12 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 		QStringList regExts; 
 		RegAssoc.GetRegisteredExtensions(exts.multimedia(), regExts); 
 		RegAssoc.RestoreFileAssociations(regExts); 
-#ifdef DEBUG
-		printf("Restored associations\n");
-#endif
-
 #endif
 		return NoError; 
 	}
-#endif
+#endif*/
+
+    qDebug()<<"********************"<<args.count();
 
 	for (int n = 1; n < args.count(); n++) {
 		QString argument = args[n];
@@ -210,9 +210,7 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 				n++;
 				action = args[n];
 			} else {
-#ifdef DEBUG
-				printf("Error: expected parameter for -send-action\r\n");
-#endif
+
 				return ErrorArgument;
 			}
 		}
@@ -222,9 +220,6 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
                 n++;
                 actions_list = args[n];
             } else {
-#ifdef DEBUG
-                printf("Error: expected parameter for -actions\r\n");
-#endif
                 return ErrorArgument;
             }
         }
@@ -235,15 +230,13 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
                 QString file = args[n];
                 if (QFile::exists(file)) {
                     subtitle_file = QFileInfo(file).absoluteFilePath();
-                } else {
-#ifdef DEBUG
-                    printf("Error: file '%s' doesn't exists\r\n", file.toUtf8().constData());
-#endif
+                } else
+                {
+
                 }
-            } else {
-#ifdef DEBUG
-                printf("Error: expected parameter for -sub\r\n");
-#endif
+            }
+            else
+            {
                 return ErrorArgument;
             }
         }
@@ -257,9 +250,6 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
                 gui_position.setY( args[n].toInt(&ok_y) );
                 if (ok_x && ok_y) move_gui = true;
             } else {
-#ifdef DEBUG
-                printf("Error: expected parameter for -pos\r\n");
-#endif
                 return ErrorArgument;
             }
         }
@@ -273,9 +263,6 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
                 gui_size.setHeight( args[n].toInt(&ok_height) );
                 if (ok_width && ok_height) resize_gui = true;
             } else {
-#ifdef DEBUG
-                printf("Error: expected parameter for -resize\r\n");
-#endif
                 return ErrorArgument;
             }
         }
@@ -336,6 +323,7 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 		printf("%s\n", CLHelp::help().toLocal8Bit().data());
 		return NoError;
 	}
+    /*
 #ifdef DEBUG
 	qDebug("SMPlayer::processArgs: files_to_play: count: %d", files_to_play.count() );
 #endif
@@ -344,6 +332,7 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
         qDebug("SMPlayer::processArgs: files_to_play[%d]: '%s'", n, files_to_play[n].toUtf8().data());
 #endif
 	}
+    */
 
 #ifdef SINGLE_INSTANCE
 	if (pref->use_single_instance) {
@@ -562,37 +551,5 @@ void SMPlayer::myMessageOutput( QtMsgType type, const char *msg ) {
 }
 #endif
 
-/*
-void myMessageOutput( QtMsgType type, const char *msg ) {
-    static QString orig_line;
-    orig_line = QString::fromUtf8(msg);
-
-    switch ( type ) {
-        case QtDebugMsg:
-            #ifndef NO_DEBUG_ON_CONSOLE
-            fprintf( stderr, "Debug: %s\n", orig_line.toLocal8Bit().data() );
-            #endif
-            break;
-
-        case QtWarningMsg:
-            #ifndef NO_DEBUG_ON_CONSOLE
-            fprintf( stderr, "Warning: %s\n", orig_line.toLocal8Bit().data() );
-            #endif
-            break;
-
-        case QtCriticalMsg:
-            #ifndef NO_DEBUG_ON_CONSOLE
-            fprintf( stderr, "Critical: %s\n", orig_line.toLocal8Bit().data() );
-            #endif
-            break;
-
-        case QtFatalMsg:
-            #ifndef NO_DEBUG_ON_CONSOLE
-            fprintf( stderr, "Fatal: %s\n", orig_line.toLocal8Bit().data() );
-            #endif
-            abort();                    // deliberately core dump
-    }
-}
-*/
 
 #include "moc_smplayer.cpp"

@@ -45,25 +45,21 @@ Favorites * TVList::createNewObject(QString filename, QWidget * parent) {
 
 #ifndef Q_OS_WIN
 void TVList::parse_channels_conf(Services services) {
-	qDebug("TVList::parse_channels_conf");
 
 	QString file = QDir::homePath() + "/.mplayer/channels.conf.ter";
 
 	if (!QFile::exists(file)) {
-		qDebug("VList::parse_channels_conf: %s doesn't exist", file.toUtf8().constData());
 		file = QDir::homePath() + "/.mplayer/channels.conf";
 	}
 
 	QFile f( file );
 	if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		qDebug("TVList::parse_channels_conf: can't open %s", file.toUtf8().constData());
 		return;
 	}
 
 	QTextStream in(&f);
 	while (!in.atEnd()) {
 		QString line = in.readLine();
-		qDebug("TVList::parse_channels_conf: '%s'", line.toUtf8().constData());
 		QString channel = line.section(':', 0, 0);
 		QString video_pid = line.section(':', 10, 10);
 		QString audio_pid = line.section(':', 11, 11);
@@ -71,7 +67,6 @@ void TVList::parse_channels_conf(Services services) {
 		bool is_data = (video_pid == "0" && audio_pid == "0");
 		bool is_tv = (!is_radio && !is_data);
 		if (!channel.isEmpty()) {
-			qDebug("TVList::parse_channels_conf: channel: '%s' video_pid: %s audio_pid: %s", channel.toUtf8().constData(),video_pid.toUtf8().constData(),audio_pid.toUtf8().constData());
 			QString channel_id = "dvb://"+channel;
 			if (findFile(channel_id) == -1) {
 				if ( (services.testFlag(TVList::TV) && is_tv) || 
@@ -87,7 +82,6 @@ void TVList::parse_channels_conf(Services services) {
 #endif
 
 void TVList::edit() {
-	qDebug("TVList::edit");
 
 	FavoriteEditor e(parent_widget);
 

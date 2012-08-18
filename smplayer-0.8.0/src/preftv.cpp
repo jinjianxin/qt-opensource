@@ -78,7 +78,6 @@ void PrefTV::setInitialDeinterlace(int ID) {
 	if (pos != -1) {
 		deinterlace_combo->setCurrentIndex(pos);
 	} else {
-		qWarning("PrefTV::setInitialDeinterlace: ID: %d not found in combo", ID);
 	}
 }
 
@@ -86,7 +85,6 @@ int PrefTV::initialDeinterlace() {
 	if (deinterlace_combo->currentIndex() != -1) {
 		return deinterlace_combo->itemData( deinterlace_combo->currentIndex() ).toInt();
 	} else {
-		qWarning("PrefTV::initialDeinterlace: no item selected");
 		return 0;
 	}
 }

@@ -49,7 +49,6 @@ WinScreenSaver::~WinScreenSaver() {
 }
 
 void WinScreenSaver::retrieveState() {
-	qDebug("WinScreenSaver::retrieveState");
 	
 	if (!state_saved) {
 #ifndef Q_OS_OS2
@@ -61,19 +60,15 @@ void WinScreenSaver::retrieveState() {
 		SystemParametersInfo(SPI_GETSCREENSAVETIMEOUT, 0, &screensaver, 0);
 		state_saved = true;
 		
-		qDebug("WinScreenSaver::retrieveState: lowpower: %d, poweroff: %d, screensaver: %d", lowpower, poweroff, screensaver);
 #else
 		state_saved = true;
-		qDebug("WinScreensaver::retrieveState: init done %s", SSCore_TempDisable ?"succesfully":"failed");
 #endif
 	} else {
-		qDebug("WinScreenSaver::retrieveState: state already saved previously, doing nothing");
 	}
 }
 
 void WinScreenSaver::restoreState() {
 	if (!modified) {
-		qDebug("WinScreenSaver::restoreState: state did not change, doing nothing");
 		return;
 	}
 	
@@ -86,15 +81,12 @@ void WinScreenSaver::restoreState() {
 		}
 		SystemParametersInfo(SPI_SETSCREENSAVETIMEOUT, screensaver, NULL, 0);
 		
-		qDebug("WinScreenSaver::restoreState: lowpower: %d, poweroff: %d, screensaver: %d", lowpower, poweroff, screensaver);
 #else
 		if (SSCore_TempEnable) {
 			SSCore_TempEnable();
 		}
-		qDebug("WinScreenSaver::restoreState done");
 #endif
 	} else {
-		qWarning("WinScreenSaver::restoreState: no data, doing nothing");
 	}
 }
 
@@ -108,11 +100,10 @@ void WinScreenSaver::unload() {
 #endif
 	
 void WinScreenSaver::disable() {
-	qDebug("WinScreenSaver::disable");
 
 #ifndef Q_OS_OS2
 	if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
-		// Not supported on Windows Vista
+
 		SystemParametersInfo(SPI_SETLOWPOWERTIMEOUT, 0, NULL, 0);
 		SystemParametersInfo(SPI_SETPOWEROFFTIMEOUT, 0, NULL, 0);
 	}
@@ -127,7 +118,6 @@ void WinScreenSaver::disable() {
 }
 
 void WinScreenSaver::enable() {
-	qDebug("WinScreenSaver::enable");
 
 	restoreState();
 }

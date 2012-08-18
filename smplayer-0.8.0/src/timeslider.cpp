@@ -54,51 +54,33 @@ TimeSlider::~TimeSlider() {
 }
 
 void TimeSlider::stopUpdate() {
-	#if DEBUG
-	qDebug("TimeSlider::stopUpdate");
-	#endif
 	dont_update = TRUE;
 }
 
 void TimeSlider::resumeUpdate() {
-	#if DEBUG
-	qDebug("TimeSlider::resumeUpdate");
-	#endif
 	dont_update = FALSE;
 }
 
 void TimeSlider::mouseReleased() {
-	#if DEBUG
-	qDebug("TimeSlider::mouseReleased");
-	#endif
+
 	emit posChanged( value() );
 }
 
 void TimeSlider::valueChanged_slot(int v) {
-	#if DEBUG
-	qDebug("TimeSlider::changedValue_slot: %d", v);
-	#endif
 
 	// Only to make things clear:
 	bool dragging = dont_update;
 	if (!dragging) {
 		if (v!=position) {
-			#if DEBUG
-			qDebug(" emitting posChanged");
-			#endif
 			emit posChanged(v);
 		}
 	} else {
-		#if DEBUG
-		qDebug(" emitting draggingPos");
-		#endif
 		emit draggingPos(v);
 	}
 }
 
 #if ENABLE_DELAYED_DRAGGING
 void TimeSlider::setDragDelay(int d) {
-	qDebug("TimeSlider::setDragDelay: %d", d);
 	timer->setInterval(d);
 }
 
@@ -107,13 +89,11 @@ int TimeSlider::dragDelay() {
 }
 
 void TimeSlider::checkDragging(int v) {
-	qDebug("TimeSlider::checkDragging: %d", v);
 	last_pos_to_send = v;
 }
 
 void TimeSlider::sendDelayedPos() {
 	if (last_pos_to_send != -1) {
-		qDebug("TimeSlider::sendDelayedPos: %d", last_pos_to_send);
 		emit delayedDraggingPos(last_pos_to_send);
 		last_pos_to_send = -1;
 	}
@@ -121,11 +101,6 @@ void TimeSlider::sendDelayedPos() {
 #endif
 
 void TimeSlider::setPos(int v) {
-	#if DEBUG
-	qDebug("TimeSlider::setPos: %d", v);
-	qDebug(" dont_update: %d", dont_update);
-	#endif
-
 	if (v!=pos()) {
 		if (!dont_update) {
 			position = v;

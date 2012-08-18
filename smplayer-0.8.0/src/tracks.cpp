@@ -69,15 +69,12 @@ int Tracks::find(int ID) {
 }
 
 int Tracks::findLang(QString expr) {
-	qDebug( "Tracks::findLang: '%s'", expr.toUtf8().data());
 	QRegExp rx( expr );
 
 	int res_id = -1;
 
 	for (int n=0; n < numItems(); n++) {
-		qDebug("Tracks::findLang: lang #%d '%s'", n, itemAt(n).lang().toUtf8().data());
 		if (rx.indexIn( itemAt(n).lang() ) > -1) {
-			qDebug("Tracks::findLang: found preferred lang!");
 			res_id = itemAt(n).ID();
 			break;	
 		}
@@ -91,8 +88,6 @@ void Tracks::list() {
 	while (i.hasNext()) {
 		i.next();
 		TrackData d = i.value();
-        qDebug("Tracks::list: item %d: ID: %d lang: '%s' name: '%s'",
-               i.key(), d.ID(), d.lang().toUtf8().constData(), d.name().toUtf8().constData() );
 	}
 }
 

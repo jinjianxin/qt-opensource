@@ -37,7 +37,7 @@ void SelectColorButton::setColor(QColor c) {
 	_color = c;
 
 	QString current_style = qApp->style()->objectName();
-	qDebug("SelectColorButton::setColor: current style name: %s", current_style.toUtf8().constData());
+    //qDebug("SelectColorButton::setColor: current style name: %s", current_style.toUtf8().constData());
 
 	ignore_change_event = true;
 

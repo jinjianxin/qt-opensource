@@ -82,7 +82,7 @@ void TitleTracks::list() {
 	while (i.hasNext()) {
 		i.next();
 		TitleData d = i.value();
-        qDebug("TitleTracks::list: item %d: ID: %d name: '%s' duration %f chapters: %d angles: %d",
-               i.key(), d.ID(), d.name().toUtf8().constData(), d.duration(), d.chapters(), d.angles() );
+        /*qDebug("TitleTracks::list: item %d: ID: %d name: '%s' duration %f chapters: %d angles: %d",
+               i.key(), d.ID(), d.name().toUtf8().constData(), d.duration(), d.chapters(), d.angles() );*/
 	}
 }

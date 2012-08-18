@@ -70,11 +70,6 @@ int main( int argc, char ** argv )
 		}
 	}
 
-#ifdef DEBUG
-    qDebug()<<"*******************************";
-#endif
-
-
 	SMPlayer * smplayer = new SMPlayer(config_path);
 	SMPlayer::ExitCode c = smplayer->processArgs( args );
 	if (c != SMPlayer::NoExit) {

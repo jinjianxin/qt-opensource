@@ -36,7 +36,6 @@ contains( DEFINES, SINGLE_INSTANCE ) {
 HEADERS += guiconfig.h \
 	config.h \
 	constants.h \
-	svn_revision.h \
 	version.h \
 	chapters.h \
 	global.h \

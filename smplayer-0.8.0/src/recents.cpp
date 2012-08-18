@@ -41,7 +41,6 @@ void Recents::setMaxItems(int n_items) {
 }
 
 void Recents::addItem(QString s) {
-	qDebug("Recents::addItem: '%s'", s.toUtf8().data());
 
 	int pos = l.indexOf(s);
 	if (pos != -1) l.removeAt(pos);
@@ -55,10 +54,10 @@ QString Recents::item(int n) {
 }
 
 void Recents::list() {
-	qDebug("Recents::list");
+//	qDebug("Recents::list");
 
 	for (int n=0; n < l.count(); n++) {
-		qDebug(" * item %d: '%s'", n, l[n].toUtf8().constData() );
+    //	qDebug(" * item %d: '%s'", n, l[n].toUtf8().constData() );
 	}
 }
 
@@ -67,8 +66,6 @@ void Recents::fromStringList(QStringList list) {
 
 	int max = list.count();
 	if (max_items < max) max = max_items;
-
-	//qDebug("max_items: %d, count: %d max: %d", max_items, l.count(), max);
 
 	for (int n = 0; n < max; n++) {
 		l.append( list[n] );
