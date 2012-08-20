@@ -135,7 +135,7 @@ BaseGui::BaseGui( QWidget* parent, Qt::WindowFlags flags )
 
 	// Create objects:
 	createPanel();
-	setCentralWidget(panel);
+    setCentralWidget(panel);
 
 	createMplayerWindow();
 	createCore();

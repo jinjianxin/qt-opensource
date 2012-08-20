@@ -54,7 +54,9 @@ SMPlayer::SMPlayer(const QString & config_path, QObject * parent )
 	allow_to_send_log_to_gui = true;
 #endif
 
-	gui_to_use = "DefaultGui";
+    //gui_to_use = "DefaultGui";
+    gui_to_use = "mpcgui";
+    //gui_to_use = "minigui";
 
 	close_at_end = -1; // Not set
 	start_in_fullscreen = -1; // Not set
@@ -88,6 +90,7 @@ SMPlayer::~SMPlayer() {
 BaseGui * SMPlayer::gui() {
 	if (main_window == 0) {
 		// Changes to app path, so smplayer can find a relative mplayer path
+
 		QDir::setCurrent(Paths::appPath());
 #ifdef DEBUG
 		qDebug("SMPlayer::gui: changed working directory to app path");
@@ -199,8 +202,6 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 		return NoError; 
 	}
 #endif*/
-
-    qDebug()<<"********************"<<args.count();
 
 	for (int n = 1; n < args.count(); n++) {
 		QString argument = args[n];
@@ -372,9 +373,13 @@ SMPlayer::ExitCode SMPlayer::processArgs(QStringList args) {
 }
 
 void SMPlayer::start() {
-	if (!gui()->startHidden() || !files_to_play.isEmpty() ) gui()->show();
+    if (!gui()->startHidden() || !files_to_play.isEmpty() )
+        gui()->show();
+
 	if (!files_to_play.isEmpty()) {
-		if (!subtitle_file.isEmpty()) gui()->setInitialSubtitle(subtitle_file);
+        if (!subtitle_file.isEmpty())
+            gui()->setInitialSubtitle(subtitle_file);
+
 		gui()->openFiles(files_to_play);
 	}
 
@@ -445,7 +450,7 @@ void SMPlayer::showInfo() {
 #endif
 #endif
            ;
-
+/*
 #ifdef DEBUG
 	printf("%s\n", s.toLocal8Bit().data() );
 	qDebug("%s", s.toUtf8().data() );
@@ -462,6 +467,7 @@ void SMPlayer::showInfo() {
 	qDebug(" * file for subtitles' styles: '%s'", Paths::subtitleStyleFile().toUtf8().data());
 	qDebug(" * current path: '%s'", QDir::currentPath().toUtf8().data());
 #endif
+    */
 }
 
 #ifdef LOG_SMPLAYER

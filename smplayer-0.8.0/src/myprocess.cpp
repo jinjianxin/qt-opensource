@@ -16,6 +16,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#include <QDebug>
+
 #include "myprocess.h"
 
 #ifdef Q_OS_WIN
@@ -76,7 +78,7 @@ QStringList MyProcess::arguments() {
 }
 
 void MyProcess::start() {
-	remaining_output.clear();
+    remaining_output.clear();
 
 	QProcess::start(program, arg);
 

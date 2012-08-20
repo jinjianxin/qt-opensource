@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QRegExp>
 #include <QDir>
+#include <QDebug>
 
 #ifndef Q_OS_WIN
 #include <stdlib.h>
@@ -52,8 +53,9 @@ QString Paths::dataPath() {
 
 QString Paths::translationPath() {
 #ifdef TRANSLATION_PATH
-	QString path = QString(TRANSLATION_PATH);
-	if (!path.isEmpty())
+    QString path = QString(TRANSLATION_PATH);
+
+    if (!path.isEmpty())
 		return path;
 	else
 		return appPath() + "/translations";

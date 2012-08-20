@@ -21,6 +21,7 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QApplication>
+#include <QDebug>
 
 Translator::Translator() {
 	qApp->installTranslator( &app_trans );
@@ -57,6 +58,9 @@ void Translator::load(QString locale) {
 #else
 	// In linux try to load it first from app path (in case there's an updated
     // translation), if it fails it will try then from the Qt path.
+
+
+
 	if (! loadCatalog(qt_trans, "qt", locale, trans_path ) ) {
 		loadCatalog(qt_trans, "qt", locale, qt_trans_path);
 	}
