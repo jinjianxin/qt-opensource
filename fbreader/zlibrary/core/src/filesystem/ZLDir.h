@@ -43,6 +43,7 @@ public:
 
 	virtual void collectSubDirs(std::vector<std::string> &names, bool includeSymlinks) = 0;
 	virtual void collectFiles(std::vector<std::string> &names, bool includeSymlinks) = 0;
+	static std::string getHomeDir();
 
 protected:
 	virtual std::string delimiter() const = 0;

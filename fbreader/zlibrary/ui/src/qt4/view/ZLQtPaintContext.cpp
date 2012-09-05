@@ -22,6 +22,7 @@
 #include <QtGui/QFontMetrics>
 #include <QtGui/QFontDatabase>
 #include <QtGui/QImage>
+#include <QtCore/QDebug>
 
 #include <ZLImage.h>
 
@@ -162,7 +163,8 @@ int ZLQtPaintContext::stringHeight() const {
 	return myPainter->font().pointSize() + 2;
 }
 
-void ZLQtPaintContext::drawString(int x, int y, const char *str, int len, bool rtl) {
+void ZLQtPaintContext::drawString(int x, int y, const char *str, int len, bool rtl) 
+{
 	QString qStr = QString::fromUtf8(str, len);
 	myPainter->setLayoutDirection(rtl ? Qt::RightToLeft : Qt::LeftToRight);
 	myPainter->drawText(x, y, qStr);

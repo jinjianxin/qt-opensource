@@ -140,6 +140,9 @@ void BookTextView::setContentsModel(shared_ptr<ZLTextModel> contentsModel) {
 	myContentsModel = contentsModel;
 }
 
+/*
+ *此处保存已打开书记的状态
+ * */
 void BookTextView::saveState() {
 	const ZLTextWordCursor &cursor = textArea().startCursor();
 

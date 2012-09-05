@@ -41,6 +41,9 @@ static std::string getHomeDir() {
 	return (home != 0) ? home : "";
 }
 
+/*
+ *此处判断文件大小，及是否是目录
+ * */
 ZLFileInfo ZLUnixFSManager::fileInfo(const std::string &path) const {
 	ZLFileInfo info;
 	struct stat fileStat;

@@ -20,22 +20,40 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+using namespace std;
+
 
 #include "ZLUnixFSDir.h"
 #include "ZLUnixFSManager.h"
 
 void ZLUnixFSDir::collectSubDirs(std::vector<std::string> &names, bool includeSymlinks) {
 	DIR *dir = opendir(path().c_str());
+
 	if (dir != 0) {
-		const std::string namePrefix = path() + delimiter();
+	
+	const std::string namePrefix = path() + delimiter();
 		const dirent *file;
 		struct stat fileInfo;
 		std::string shortName;
+
+		std::string s1(".");
+		std::string s2(".");
+
+
 		while ((file = readdir(dir)) != 0) {
 			shortName = file->d_name;
-			if ((shortName == ".") || (shortName == "..")) {
-				continue;
-			}
+
+			 size_t pos =0;
+		     pos = shortName.find(".");
+		
+			 if(pos == 0)
+			 {
+				 continue;
+			 }
+
 			const std::string path = namePrefix + shortName;
 			if (includeSymlinks) {
 				stat(path.c_str(), &fileInfo);

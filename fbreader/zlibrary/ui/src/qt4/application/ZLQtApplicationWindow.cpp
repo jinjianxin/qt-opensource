@@ -195,7 +195,7 @@ void ZLQtApplicationWindow::closeEvent(QCloseEvent *event) {
 		event->accept();
 	} else {
 		event->ignore();
-	}
+	}	
 }
 
 void ZLQtApplicationWindow::addToolbarItem(ZLToolbar::ItemPtr item) {

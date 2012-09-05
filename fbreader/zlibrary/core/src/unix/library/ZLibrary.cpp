@@ -80,7 +80,8 @@ bool ZLibrary::init(int &argc, char **&argv) {
 #ifdef ZLSHARED
 //	const std::string pluginPath = std::string(LIBDIR) + "/zlibrary/ui";
 
-	const std::string pluginPath = "/home/jjx/jjx/fbreader-0.12.10.orig/zlibrary/ui";
+//	const std::string pluginPath = "/home/jjx/jjx/fbreader-0.12.10.orig/zlibrary/ui";
+	const std::string pluginPath = "../zlibrary/ui";
 
 	printf("=====%s\n",pluginPath.c_str());
 

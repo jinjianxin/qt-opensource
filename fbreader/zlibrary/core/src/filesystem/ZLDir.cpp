@@ -17,6 +17,8 @@
  * 02110-1301, USA.
  */
 
+#include <stdlib.h>
+
 #include "ZLFSManager.h"
 #include "ZLDir.h"
 
@@ -54,4 +56,10 @@ std::string ZLDir::itemPath(const std::string &itemName) const {
 	} else {
 		return isRoot() ? myPath + itemName : myPath + delimiter() + itemName;
 	}
+}
+
+std::string ZLDir::getHomeDir()
+{
+	char *home = getenv("HOME");
+     return (home != 0) ? home : "";
 }

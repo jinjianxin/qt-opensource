@@ -22,6 +22,9 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QClipboard>
 #include <QtGui/QDesktopWidget>
+#include <iostream>
+
+using namespace std;
 
 #include "ZLQtDialogManager.h"
 #include "ZLQtDialog.h"
@@ -35,6 +38,7 @@
 
 shared_ptr<ZLOptionsDialog> ZLQtDialogManager::createOptionsDialog(const ZLResourceKey &key, shared_ptr<ZLRunnable> applyAction, bool showApplyButton) const {
 	myStoredWindow = qApp->activeWindow();
+
 	return new ZLQtOptionsDialog(resource()[key], applyAction, showApplyButton);
 }
 

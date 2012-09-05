@@ -221,14 +221,17 @@ bool FBReader::createBook(const std::string& fileName, shared_ptr<Book> &book) {
 	shared_ptr<FormatPlugin> plugin =
 		PluginCollection::Instance().plugin(ZLFile(fileName), false);
 	if (!plugin.isNull()) {
+		
 		std::string error = plugin->tryOpen(fileName);
-		if (!error.empty()) {
+		if (!error.empty()) 
+		{
 			ZLResourceKey boxKey("openBookErrorBox");
 			ZLDialogManager::Instance().errorBox(
 				boxKey,
 				ZLStringUtil::printf(ZLDialogManager::dialogMessage(boxKey), error)
 			);
-		} else {
+		} else 
+		{
 			book = BooksDBUtil::getBook(bookFile.path());
 			if (!book.isNull()) {
 				BooksDB::Instance().insertIntoBookList(*book);
@@ -236,6 +239,7 @@ bool FBReader::createBook(const std::string& fileName, shared_ptr<Book> &book) {
 		}
 		return true;
 	}
+
 
 	if (!bookFile.isArchive()) {
 		return false;

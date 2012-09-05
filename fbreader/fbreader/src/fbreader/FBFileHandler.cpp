@@ -50,7 +50,17 @@ FBFileHandler::~FBFileHandler() {
 }
 
 void FBFileHandler::changeFolder(const ZLTreeNode &node) {
+	
+	std::string path = myDir->itemPath(node.id());
+
+	cout<<"path"<<path<<endl;
+	if(path == "/home")
+	{
+		return ;
+	}
+
 	shared_ptr<ZLDir> dir = ZLFile(myDir->itemPath(node.id())).directory();
+
 	if (!dir.isNull()) {
 		const std::string selectedId = myDir->name();
 		myDir = dir;
@@ -144,7 +154,6 @@ int FBFileHandler::selectedIndex() const {
  *调用对话框打开文件时，调用此函数
  * */
 bool FBFileHandler::accept(const ZLTreeNode &node) {
-	cout<<myDir->itemPath(node.id())<<endl;
 	FBReader::createBook(myDir->itemPath(node.id()), myDescription);
 	return !myDescription.isNull();
 }

@@ -51,6 +51,8 @@ shared_ptr<Book> BooksDBUtil::getBook(const std::string &filePath, bool checkFil
 		saveInfo(file);
 	}
 
+	cout<<"****************"<<filePath<<endl;
+
 	shared_ptr<Book> book = Book::loadFromFile(filePath);
 	if (book.isNull()) {
 		return 0;

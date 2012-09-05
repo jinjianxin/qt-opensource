@@ -277,7 +277,9 @@ void Library::updateBook(shared_ptr<Book> book) {
 	BooksDB::Instance().saveBook(book);
 	myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
 }
-
+/*
+ * 保存打开的文件信息到数据库
+ */
 void Library::addBook(shared_ptr<Book> book) {
 	if (!book.isNull()) {
 		BooksDB::Instance().saveBook(book);
